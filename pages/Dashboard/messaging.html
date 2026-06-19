@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --blue: #1a73e8; --dark: #0f172a; --muted: #64748b; --bg: #f8fafc; --bdr: #cbd5e1; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif; }
+        body { background:#cbd5e1; display:flex; justify-content:center; align-items:center; min-height:100vh; }
+        .box { width:310px; height:640px; background:#fff; display:flex; flex-direction:column; overflow:hidden; }
+        
+        .header { display:flex; justify-content:center; align-items:center; padding:18px; font-weight:700; font-size:14px; position:relative; }
+        .header i { position:absolute; right:20px; color:var(--blue); font-size:16px; }
+        .search { display:flex; align-items:center; background:var(--bg); margin:0 16px 16px; padding:10px; border-radius:10px; gap:8px; font-size:12px; }
+        .search input { border:none; background:transparent; outline:none; flex:1; }
+        .filter { background:#fff; border:1px solid var(--bdr); padding:4px 8px; border-radius:6px; color:var(--muted); }
+        .tabs { display:flex; gap:20px; padding:0 16px 12px; border-bottom:1px solid #f1f5f9; font-size:12px; font-weight:600; color:var(--muted); }
+        .tabs .active { color:var(--blue); }
+        .badge { background:var(--blue); color:#fff; font-size:9px; padding:1px 6px; border-radius:10px; }
+        .list { padding:16px; display:flex; flex-direction:column; gap:16px; }
+        .item { display:flex; gap:12px; align-items:center; }
+        .avatar { width:40px; height:40px; border-radius:50%; background:#ccc; }
+        .info { flex:1; }
+        .top { display:flex; justify-content:space-between; font-size:12px; font-weight:700; margin-bottom:2px; }
+        .time { font-weight:400; font-size:10px; color:var(--muted); }
+        .sub { font-size:11px; color:var(--muted); }
+        .nav { display:flex; border-top:1px solid #f1f5f9; padding:10px 0; justify-content:space-around; color:var(--muted); font-size:10px; margin-top:auto; }
+        .nav .active { color:var(--blue); }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="header">Messages<i class="fa-regular fa-pen-to-square"></i></div>
+        <div class="search"><i class="fa-solid fa-magnifying-glass"></i><input placeholder="Rechercher un lead...">
+            <div class="filter"><i class="fa-solid fa-sliders"></i> Filtre</div>
+        </div>
+        <div class="tabs"><span class="active">Tous</span><span>Non lus <span class="badge">10</span></span><span>Étudiants</span></div>
+        <div class="list">
+            <div class="item"><img src="/images/Ell.png" class="avatar"><div class="info">
+                <div class="top">Serena TOUNGUE <span class="time">10:32</span></div>
+                <div class="sub">Un message est un ensemble de signes...</div>
+            </div></div>
+            <div class="item"><img src="/images/Ell.png" class="avatar"><div class="info">
+                <div class="top">Serena TOUNGUE <span class="time">10:32</span></div>
+                <div class="sub">Un message est un ensemble de signes...</div>
+            </div></div>
+            <div class="item"><img src="/images/Ell.png" class="avatar"><div class="info">
+                <div class="top">Serena TOUNGUE <span class="time">10:32</span></div>
+                <div class="sub">Un message est un ensemble de signes...</div>
+            </div></div>
+            <div class="item"><img src="/images/Ell.png" class="avatar"><div class="info">
+                <div class="top">Serena TOUNGUE <span class="time">10:32</span></div>
+                <div class="sub">Un message est un ensemble de signes...</div>
+            </div></div>
+            <div class="item"><img src="/images/Ell.png" class="avatar"><div class="info">
+                <div class="top">Serena TOUNGUE <span class="time">10:32</span></div>
+                <div class="sub">Un message est un ensemble de signes...</div>
+            </div></div>
+            
+            
+        </div>
+        <div class="nav">
+            <div class="active"><i class="fa-regular fa-comment-dots" style="font-size:16px;display:block;margin-bottom:4px;"></i>Messages</div>
+            <div><i class="fa-regular fa-user" style="font-size:16px;display:block;margin-bottom:4px;"></i>Profil</div>
+            <div><i class="fa-solid fa-chart-line" style="font-size:16px;display:block;margin-bottom:4px;"></i>Leads</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil & Informations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+        body { background: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .hidden { display: none !important; }
+        .mobile-container { width: 410px; height: 840px; background: #fff; border-radius: 32px; box-shadow: 0 12px 40px rgba(0,0,0,0.1); position: relative; display: flex; flex-direction: column; overflow: hidden; }
+        
+        /* Header & Content */
+        .header { display: flex; justify-content: space-between; padding: 24px 24px 10px; width: 100%; }
+        .btn { background: none; border: none; font-size: 20px; cursor: pointer; color: #1e293b; }
+        .profile-content { flex: 1; padding: 20px 24px 90px; display: flex; flex-direction: column; align-items: center; height: 100%; }
+
+        /* Screen 1: Menu Overview */
+        .avatar { width: 96px; height: 96px; background: #0c4a6e; border-radius: 50%; color: #fff; font-size: 38px; display: flex; justify-content: center; align-items: center; margin: 20px 0 16px; }
+        .menu-btn { width: 100%; padding: 14px; margin-bottom: 14px; border-radius: 12px; font-weight: 600; font-size: 13px; border: none; cursor: pointer; text-align: center; }
+        .btn-blue { background: #2563eb; color: #fff; }
+        .btn-red { background: #ef4444; color: #fff; margin-top: 6px; }
+
+        /* Screen 2: Form */
+        .form-group { width: 100%; margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 8px; color: #0f172a; }
+        .form-control { width: 100%; border: 1px solid #cbd5e1; border-radius: 14px; padding: 12px 16px; font-size: 13px; outline: none; }
+        .badge { margin-top: auto; font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 1.5px; padding-top: 60px; }
+
+        /* Bottom Navigation */
+        .bottom-nav { position: absolute; bottom: 0; width: 100%; background: #0f172a; display: flex; justify-content: space-around; padding: 14px 0; }
+        .nav-icon { color: #64748b; font-size: 20px; cursor: pointer; }
+        .nav-icon.active { color: #fff; }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-container">
+        
+        <div id="viewA" class="profile-content">
+            <div class="header" style="padding: 0 0 10px 0;">
+                <button class="btn" onclick="alert('Retour')"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="btn" style="position:relative;"><i class="fa-regular fa-bell"></i><span style="position:absolute; top:2px; right:2px; width:7px; height:7px; background:#ef4444; border-radius:50%;"></span></button>
+            </div>
+            <div class="avatar"><i class="fa-solid fa-user"></i></div>
+            <h2 style="font-size:16px; margin-bottom:4px;">Stranger Boy</h2>
+            <p style="font-size:12px; color:#64748b; margin-bottom:35px;">Student</p>
+            <button class="menu-btn btn-blue" onclick="toggleView('edit')">Informations personnelles</button>
+            <button class="menu-btn btn-blue">Modifier profil</button>
+            <button class="menu-btn btn-blue">Mes inscriptions</button>
+            <button class="menu-btn btn-red" onclick="alert('Déconnexion')">Déconnexion</button>
+        </div>
+
+        <div id="viewB" class="profile-content hidden">
+            <div class="header" style="padding: 0 0 10px 0;">
+                <button class="btn" onclick="toggleView('menu')"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="btn"><i class="fa-regular fa-bell"></i></button>
+            </div>
+            <div style="width:100%; text-align:right; margin: 10px 0 25px;"><button class="btn" style="font-size:16px;"><i class="fa-solid fa-pen"></i></button></div>
+            <div class="form-group"><label>Votre nom</label><input type="text" class="form-control" value="Stranger Boy"></div>
+            <div class="form-group"><label>Votre E-mail</label><input type="email" class="form-control" value="strangernoy@sige-uc.com"></div>
+            <div class="badge">Student</div>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-icon"><i class="fa-solid fa-house"></i></div>
+            <div class="nav-icon"><i class="fa-solid fa-compass"></i></div>
+            <div class="nav-icon"><i class="fa-solid fa-calendar-days"></i></div>
+            <div class="nav-icon active"><i class="fa-solid fa-graduation-cap"></i></div>
+        </div>
+    </div>
+
+    <script>
+        function toggleView(screen) {
+            document.getElementById('viewA').classList.toggle('hidden', screen === 'edit');
+            document.getElementById('viewB').classList.toggle('hidden', screen === 'menu');
+        }
+    </script>
+</body>
+</html>

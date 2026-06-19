@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGE-UC - Connected & Fully Responsive</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Color Palette --- */
+        :root {
+            --primary-blue: #0d3566;
+            --secondary-blue: #1a73e8;
+            --accent-red: #e63946;
+            --bg-light: #f8fafc;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #cbd5e1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* --- Perfect Responsive Frame --- */
+        .phone-container {
+            width: 310px;
+            height: 640px;
+            background-color: #ffffff;
+            border-radius: 36px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            border: 6px solid #ffffff;
+        }
+
+        /* Targets all modern mobile viewports seamlessly */
+        @media (max-width: 500px) {
+            body {
+                background-color: #ffffff;
+            }
+            .phone-container {
+                width: 100vw;
+                height: 100vh;
+                max-width: 100vw;
+                max-height: 100vh;
+                border-radius: 0;
+                border: none;
+                box-shadow: none;
+            }
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            overflow-y: auto;
+        }
+        .screen.active {
+            display: flex;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 32px 12px 12px;
+        }
+        .logo-caption {
+            font-size: 7px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            line-height: 1.3;
+            max-width: 100px;
+        }
+        .logo-caption.left { text-align: right; }
+        .logo-caption.right { text-align: left; }
+        
+        .logo-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .logo-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--secondary-blue);
+            line-height: 1;
+        }
+
+        .auth-header {
+            padding: 0 24px;
+            margin-bottom: 20px;
+        }
+        .auth-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+        .auth-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .form-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0 24px 6px;
+            display: block;
+        }
+        .form-input {
+            width: calc(100% - 48px);
+            margin: 0 24px 14px 24px;
+            padding: 12px 16px;
+            border: 1px solid #d8e2ef;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            background-color: var(--bg-light);
+        }
+        .phone-row {
+            display: flex;
+            gap: 10px;
+            padding: 0 24px;
+            margin-bottom: 14px;
+        }
+        .country-badge {
+            width: 90px;
+            border: 1px solid #d8e2ef;
+            border-radius: 12px;
+            background-color: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* --- Buttons --- */
+        .btn {
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            width: calc(100% - 48px);
+            margin: 12px 24px;
+            text-align: center;
+        }
+        .btn-blue { background-color: var(--secondary-blue); color: #ffffff; }
+        .btn-red { background-color: var(--accent-red); color: #ffffff; }
+
+        .divider {
+            text-align: center;
+            margin: 10px 0;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+        .social-container {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 15px;
+        }
+        .social-item {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            cursor: pointer;
+            background: #fff;
+        }
+        .system-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            font-size: 11px;
+            color: var(--text-muted);
+            padding: 16px 0 8px;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f1f5f9;
+            border-top-color: var(--secondary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-container">
+
+    <div id="screen-loading" class="screen active" style="justify-content: center; align-items: center;">
+        <div class="logo-container">
+            <div class="logo-caption left">Salon International<br>des Grandes Écoles</div>
+            <div class="logo-center">
+                <div class="logo-title">SIGE UC</div>
+            </div>
+            <div class="logo-caption right">et Universités<br>du Cameroun</div>
+        </div>
+        <div style="margin-top: 100px; display: flex; flex-direction: column; align-items: center; gap: 16px;">
+            <div class="spinner"></div>
+            <p style="color: var(--text-muted); font-size: 13px;">Veuillez Patienter...</p>
+        </div>
+    </div>
+
+    <div id="screen-welcome" class="screen">
+        <div class="logo-container">
+            <div class="logo-caption left">Salon International<br>des Grandes Écoles</div>
+            <div class="logo-center">
+                <div class="logo-title">SIGE UC</div>
+            </div>
+            <div class="logo-caption right">et Universités<br>du Cameroun</div>
+        </div>
+        
+        <div style="text-align: center; margin: 40px 24px 15px;">
+            <p style="font-size: 15px; line-height: 1.5; color: var(--text-dark); font-weight: 500;">
+                Bienvenue sur la plateforme numero 1 de <strong>salon hybride</strong> du Cameroun
+            </p>
+            <p style="color: var(--text-muted); font-size: 13px; font-weight: 500; margin-top: 10px;">C'est parti !</p>
+        </div><br><br>
+
+        <button class="btn btn-blue" onclick="router.navigateTo('screen-profile')">COMMENCER</button>
+
+        <div style="flex: 1; position: relative; margin-top: auto; min-height: 180px;">
+            <img src="/images/Slides.png" style="width: 100%; height: 100%; object-fit: cover; border-top-left-radius: 36px; border-top-right-radius: 36px;" alt="Students">
+            <div style="position: absolute; bottom: 20px; width: 100%; display: flex; justify-content: center;">
+                <button style="background: var(--secondary-blue); color: white; padding: 12px 24px; border-radius: 30px; font-weight: 600; border: none; cursor: pointer; font-size: 13px;" onclick="router.navigateTo('screen-profile')">
+                    Découvrir des écoles
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-profile" class="screen">
+        <div class="logo-container">
+            <div class="logo-caption left">Salon International<br>des Grandes Écoles</div>
+            <div class="logo-center">
+                <div class="logo-title">SIGE UC</div>
+            </div>
+            <div class="logo-caption right">et Universités<br>du Cameroun</div>
+        </div>
+        
+        <h3 style="text-align: center; font-size: 19px; margin: 20px 0 24px; font-weight: 400;">Veuillez choisir votre<br> Profil</h3>
+        <br>
+        <div style="padding: 0 24px; display: flex; flex-direction: column; gap: 20px;">
+            <div onclick="router.navigateTo('screen-register-student')" style="cursor: pointer;">
+                <p style="font-size: 13px; font-weight: 70; margin-bottom: 6px;">Je suis un étudiant</p>
+                <div style="height: 200px; border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color);">
+                    <img src="/images/Slide3.png" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </div>
+            <div onclick="router.navigateTo('screen-register-exhibitor')" style="cursor: pointer;">
+                <p style="font-size: 13px; font-weight: 70; margin-bottom: 6px;">Je suis un exposant</p>
+                <div style="height: 200px; border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color);">
+                    <img src="/images/Slide2.png" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-register-student" class="screen">
+        <div class="logo-container">
+            <div class="logo-caption left">Salon International<br>des Grandes Écoles</div>
+            <div class="logo-center">
+                <div class="logo-title">SIGE UC</div>
+            </div>
+            <div class="logo-caption right">et Universités<br>du Cameroun</div> 
+        </div>
+        
+        <div class="auth-header">
+            <h2 class="auth-title">Créer un Compte</h2>
+            <p class="auth-subtitle">Bienvenue sur la plateforme numéro 1 de salon hybride du Cameroun</p>
+        </div>
+        
+        <label class="form-label">Votre E-mail</label>
+        <input type="email" class="form-input" placeholder="exemple@sige-uc.com">
+        
+        <label class="form-label">Entrer votre mot de passe</label>
+        <input type="password" class="form-input" placeholder="••••••••">
+        
+        <label class="form-label">Confirmer votre mot de passe</label>
+        <input type="password" class="form-input" placeholder="••••••••">
+        
+        <button class="btn btn-red" onclick="router.navigateTo('screen-whatsapp')">S'inscrire</button>
+        
+        <div class="divider">Ou continuer avec</div>
+        <div class="social-container">
+            <div class="social-item" style="color: #ea4335;"><i class="fa-brands fa-google"></i></div>
+            <div class="social-item" style="color: #1877f2;"><i class="fa-brands fa-facebook-f"></i></div>
+            <div class="social-item" style="color: #25d366;" onclick="router.navigateTo('screen-whatsapp')"><i class="fa-brands fa-whatsapp"></i></div>
+        </div>
+
+        <p style="text-align: center; font-size: 12px; color: var(--text-muted);">Vous avez déjà un compte ? <span style="color: var(--secondary-blue); font-weight:600; cursor:pointer;">Se connecter</span></p>
+
+        <div class="system-footer">
+            <span>Français (Cameroun)</span><span>Aide</span><span>Confidentialité</span>
+        </div>
+    </div>
+
+    <div id="screen-register-exhibitor" class="screen">
+        <div class="logo-container">
+            <div class="logo-caption left">Salon International<br>des Grandes Écoles</div>
+            <div class="logo-center">
+                <div class="logo-title">SIGE UC</div>
+            </div>
+            <div class="logo-caption right">et Universités<br>du Cameroun</div>   
+        </div>
+        
+        <div class="auth-header">
+            <h2 class="auth-title">Créer un Compte</h2>
+            <p class="auth-subtitle">Bienvenue sur la plateforme numéro 1 de salon hybride du Cameroun</p>
+        </div>
+        
+        <label class="form-label">Nom établissement</label>
+        <input type="text" class="form-input" placeholder="Ex: ESSEC BUSINESS SCHOOL">
+        
+        <label class="form-label">E-mail</label>
+        <input type="email" class="form-input" placeholder="contact@domaine.com">
+        
+        <label class="form-label">Téléphone</label>
+        <div class="phone-row">
+            <div class="country-badge">🇨🇲 +237</div>
+            <input type="tel" class="form-input" placeholder="677 000 000" style="flex: 1; margin: 0; width: auto;">
+        </div>
+        
+        <label class="form-label">Entrer votre mot de passe</label>
+        <input type="password" class="form-input" placeholder="••••••••">
+        
+        <label class="form-label">Confirmer votre mot de passe</label>
+        <input type="password" class="form-input" placeholder="••••••••">
+        
+        <button class="btn btn-red" onclick="router.navigateTo('screen-whatsapp')">S'inscrire</button>
+        
+        <p style="text-align: center; font-size: 12px; color: var(--text-muted);">Vous avez déjà un compte ? <span style="color: var(--secondary-blue); font-weight:600; cursor:pointer;">Se connecter</span></p>
+
+        <div class="system-footer">
+            <span>Français (Cameroun)</span><span>Aide</span><span>Confidentialité</span>
+        </div>
+    </div>
+
+    <div id="screen-whatsapp" class="screen">
+        <div class="logo-container" style="padding-top: 40px;">
+            <div class="logo-caption left">Salon International<br>des Grandes Écoles</div>
+            <div class="logo-center"><div class="logo-title">SIGE UC</div></div>
+            <div class="logo-caption right">et Universités<br>du Cameroun</div>
+        </div>
+        
+        <div class="auth-header" style="margin-top: 24px; margin-bottom: 12px;">
+            <h2 class="auth-title" style="color: var(--secondary-blue); font-size: 18px; font-weight: 700;">Entrer votre numéro<br>whatsapp</h2>
+        </div>
+        
+        <div class="phone-row" style="margin-top: 12px;">
+            <div class="country-badge" style="width: 70px; gap: 6px;">🇨🇲 -</div>
+            <input type="tel" class="form-input" placeholder="+237 677 000 000" style="flex: 1; margin: 0; width: auto;">
+        </div>
+        
+        <button class="btn btn-red" style="margin-top: 18px;" onclick="router.navigateTo('screen-otp')">Envoyer le code OTP</button>
+        
+        <div class="system-footer" style="margin-top: auto; flex-direction: column; align-items: center; gap: 4px; padding-bottom: 16px;">
+            <span style="font-size: 11px;">Français (Cameroun)</span>
+            <div style="display: flex; gap: 12px; font-size: 11px;">
+                <span>Aide</span><span>Confidentialité</span><span>Conditions</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-otp" class="screen">
+        <div class="logo-container" style="padding-top: 40px;">
+            <div class="logo-caption left">Salon International<br>des Grandes Écoles</div>
+            <div class="logo-center"><div class="logo-title">SIGE UC</div></div>
+            <div class="logo-caption right">et Universités<br>du Cameroun</div>
+        </div>
+        
+        <div class="auth-header" style="margin-top: 24px; margin-bottom: 16px;">
+            <h2 class="auth-title" style="color: var(--secondary-blue); font-size: 18px; font-weight: 700;">Vérifier le code<br>OTP</h2>
+            <p class="auth-subtitle" style="font-size: 11px; margin-top: 6px; line-height: 1.4;">
+                Nous avons envoyé un code au +237 ***** 18. Veuillez consulter votre messagerie whatsapp
+            </p>
+        </div>
+        
+        <div style="display: flex; justify-content: center; gap: 10px; margin: 24px 24px 16px;">
+            <input type="text" maxlength="1" value="7" style="width: 38px; height: 38px; text-align: center; border: 1px solid var(--border-color); border-radius: 8px; font-weight: 700; background: var(--bg-light); font-size: 14px;">
+            <input type="text" maxlength="1" value="8" style="width: 38px; height: 38px; text-align: center; border: 1px solid var(--border-color); border-radius: 8px; font-weight: 700; background: var(--bg-light); font-size: 14px;">
+            <input type="text" maxlength="1" value="5" style="width: 38px; height: 38px; text-align: center; border: 1px solid var(--border-color); border-radius: 8px; font-weight: 700; background: var(--bg-light); font-size: 14px;">
+            <input type="text" maxlength="1" value="9" style="width: 38px; height: 38px; text-align: center; border: 1px solid var(--border-color); border-radius: 8px; font-weight: 700; background: var(--bg-light); font-size: 14px;">
+        </div>
+        
+        <p style="text-align: center; font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">
+            Vous n'avez pas reçu de code ? <span style="color: var(--secondary-blue); cursor: pointer; font-weight: 600;">Renvoyer</span>
+        </p>
+        
+        <button class="btn btn-red" onclick="router.navigateTo('screen-presentation')">Confirmer</button>
+        
+        <div class="system-footer" style="margin-top: auto; flex-direction: column; align-items: center; gap: 4px; padding-bottom: 16px;">
+            <span style="font-size: 11px;">Français (Cameroun)</span>
+            <div style="display: flex; gap: 12px; font-size: 11px;">
+                <span>Aide</span><span>Confidentialité</span><span>Conditions</span>
+            </div>
+        </div>
+    </div>
+
+   
+
+</div>
+
+<script>
+    class AppRouter {
+        constructor() {
+            this.activeScreen = 'screen-loading';
+            this.startLoadingTimer();
+        }
+
+        startLoadingTimer() {
+            setTimeout(() => {
+                this.navigateTo('screen-welcome');
+            }, 1500);
+        }
+
+        navigateTo(screenId) {
+            const current = document.getElementById(this.activeScreen);
+            const target = document.getElementById(screenId);
+            
+            if (current && target) {
+                current.style.display = 'none';
+                target.style.display = 'flex';
+                this.activeScreen = screenId;
+            }
+        }
+    }
+
+    // Initialize the logic router
+    const router = new AppRouter();
+</script>
+
+</body>
+</html>
