@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGE-UC - Prototype Exposant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #0c4a6e;
+            --secondary: #2563eb;
+            --danger: #ef4444;
+            --bg-light: #f4f7fc;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        
+        body {
+            background-color: #cbd5e1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .phone-container {
+            width: 350px;
+            height: 700px;
+            background-color: #ffffff;
+            border-radius: 36px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            border: 8px solid #ffffff;
+        }
+
+        /* Screen Router Logic */
+        .screen {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-light);
+            overflow-y: auto;
+        }
+        .screen.active { display: flex; }
+
+        /* Headers */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .back-btn {
+            background: none; border: none; font-size: 16px; color: var(--text-dark); cursor: pointer;
+        }
+        .header-title { font-weight: 700; font-size: 15px; color: var(--text-dark); }
+
+        /* Dashboard Items */
+        .menu-list { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+        .menu-item {
+            background-color: #ffffff; border-radius: 16px; padding: 14px 16px;
+            display: flex; align-items: center; cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .icon-wrapper {
+            width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center;
+            align-items: center; color: #ffffff; font-size: 16px; margin-right: 14px; flex-shrink: 0;
+        }
+        .menu-text { flex: 1; }
+        .menu-text h3 { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+        .menu-text p { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+        /* Leads Screen */
+        .lead-item {
+            background: #fff; padding: 12px 20px; display: flex; align-items: center; gap: 12px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .avatar { width: 40px; height: 40px; border-radius: 50%; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--secondary); }
+        .lead-info h4 { font-size: 13px; color: var(--text-dark); }
+        .lead-info p { font-size: 11px; color: var(--text-muted); }
+
+        /* Stats Screen */
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 20px; }
+        .stat-card { background: #fff; padding: 16px; border-radius: 16px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .stat-card h2 { font-size: 20px; color: var(--secondary); margin-bottom: 4px; }
+        .stat-card p { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+        .chart-box { background: #fff; margin: 0 20px 20px; border-radius: 16px; padding: 16px; height: 150px; display: flex; align-items: flex-end; gap: 8px; justify-content: center;}
+        .bar { width: 30px; background: var(--secondary); border-radius: 4px 4px 0 0; }
+
+        /* Events Screen */
+        .event-card {
+            background: #fff; margin: 0 20px 16px; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .event-img { width: 100%; height: 120px; background: #cbd5e1; object-fit: cover; }
+        .event-details { padding: 16px; }
+        .event-details h3 { font-size: 14px; margin-bottom: 4px; }
+        .event-details p { font-size: 11px; color: var(--text-muted); margin-bottom: 12px; }
+        .btn-blue { background: var(--secondary); color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; width: 100%; cursor: pointer; }
+
+    </style>
+</head>
+<body>
+
+<div class="phone-container">
+
+    <div id="screen-dashboard" class="screen active">
+        <div class="header">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="avatar" style="background: #fee2e2; color: #dc2626;">S</div>
+                <div>
+                    <h2 style="font-size: 14px;">ESSEC Business</h2>
+                    <p style="font-size: 10px; color: var(--text-muted);">Espace Exposant</p>
+                </div>
+            </div>
+            <i class="fa-regular fa-bell" style="color: var(--text-muted);"></i>
+        </div>
+
+        <div class="menu-list">
+            <h1 style="font-size: 18px; color: var(--text-dark); margin-bottom: 8px;">Fonctionnalités</h1>
+            
+            <div class="menu-item" onclick="nav('screen-leads')">
+                <div class="icon-wrapper" style="background: #ef4444;"><i class="fa-solid fa-user-group"></i></div>
+                <div class="menu-text"><h3>Leads & Demandes</h3><p>Voir et suivre vos contacts</p></div>
+                <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
+            </div>
+
+            <div class="menu-item" onclick="nav('screen-stats')">
+                <div class="icon-wrapper" style="background: #dc2626;"><i class="fa-solid fa-chart-bar"></i></div>
+                <div class="menu-text"><h3>Statistiques</h3><p>Analyser vos performances</p></div>
+                <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
+            </div>
+
+            <div class="menu-item" onclick="nav('screen-events')">
+                <div class="icon-wrapper" style="background: #22c55e;"><i class="fa-solid fa-calendar-days"></i></div>
+                <div class="menu-text"><h3>Evènements & Salons</h3><p>Gérer vos sessions</p></div>
+                <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
+            </div>
+            
+            <div class="menu-item">
+                <div class="icon-wrapper" style="background: #10b981;"><i class="fa-solid fa-file-image"></i></div>
+                <div class="menu-text"><h3>Contenus du stand</h3><p>Brochure, vidéos, documents</p></div>
+                <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-leads" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="nav('screen-dashboard')"><i class="fa-solid fa-arrow-left"></i></button>
+            <span class="header-title">Leads & Demandes</span>
+            <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted);"></i>
+        </div>
+        <div style="padding: 10px 20px; display: flex; gap: 10px;">
+            <span style="background: var(--secondary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px;">Tous</span>
+            <span style="background: #e2e8f0; color: var(--text-dark); padding: 4px 12px; border-radius: 20px; font-size: 11px;">Nouveaux</span>
+        </div>
+        <div class="lead-item">
+            <div class="avatar">JM</div>
+            <div class="lead-info"><h4>Jean Michel</h4><p>Intéressé par Master Finance</p></div>
+        </div>
+        <div class="lead-item">
+            <div class="avatar" style="background: #dcfce7; color: #16a34a;">ST</div>
+            <div class="lead-info"><h4>Serena Toungue</h4><p>Demande de brochure</p></div>
+        </div>
+        <div class="lead-item">
+            <div class="avatar" style="background: #fef08a; color: #ca8a04;">MB</div>
+            <div class="lead-info"><h4>Marc Bertrand</h4><p>Inscription validée</p></div>
+        </div>
+    </div>
+
+    <div id="screen-stats" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="nav('screen-dashboard')"><i class="fa-solid fa-arrow-left"></i></button>
+            <span class="header-title">Statistiques</span>
+            <i class="fa-solid fa-download" style="color: var(--text-muted);"></i>
+        </div>
+        <div class="stat-grid">
+            <div class="stat-card"><h2>12,540</h2><p>Visites totales</p></div>
+            <div class="stat-card"><h2>842</h2><p>Leads générés</p></div>
+        </div>
+        <h3 style="font-size: 13px; margin: 0 20px 10px; color: var(--text-dark);">Évolution des visites</h3>
+        <div class="chart-box">
+            <div class="bar" style="height: 40%;"></div>
+            <div class="bar" style="height: 60%;"></div>
+            <div class="bar" style="height: 30%;"></div>
+            <div class="bar" style="height: 80%;"></div>
+            <div class="bar" style="height: 100%;"></div>
+            <div class="bar" style="height: 70%;"></div>
+        </div>
+    </div>
+
+    <div id="screen-events" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="nav('screen-dashboard')"><i class="fa-solid fa-arrow-left"></i></button>
+            <span class="header-title">Évènements & Salons</span>
+            <i class="fa-solid fa-plus" style="color: var(--secondary);"></i>
+        </div>
+        <div style="padding: 20px;">
+            <div class="event-card">
+                <div class="event-img" style="background: linear-gradient(45deg, #0f172a, #1e40af);"></div>
+                <div class="event-details">
+                    <h3>SIGE-UC 1ère Édition</h3>
+                    <p><i class="fa-regular fa-calendar"></i> 21 - 23 Juillet 2026<br><i class="fa-solid fa-location-dot"></i> Yaoundé, Hôtel Djeuga</p>
+                    <button class="btn-blue">Gérer le stand</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Simple Router Function
+    function nav(targetId) {
+        // Hide all screens
+        const screens = document.querySelectorAll('.screen');
+        screens.forEach(s => s.classList.remove('active'));
+        
+        // Show target screen
+        document.getElementById(targetId).classList.add('active');
+    }
+</script>
+
+</body>
+</html>
