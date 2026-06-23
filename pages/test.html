@@ -20,7 +20,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         
         body {
-            background-color: #cbd5e1;
+            background-color: #d3dde7;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -40,7 +40,6 @@
             border: 8px solid #ffffff;
         }
 
-        /* Screen Router Logic */
         .screen {
             display: none;
             flex-direction: column;
@@ -71,7 +70,7 @@
         /* Dashboard Items */
         .menu-list { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
         .menu-item {
-            background-color: #ffffff; border-radius: 16px; padding: 14px 16px;
+             border-radius: 16px; padding: 14px 16px;
             display: flex; align-items: center; cursor: pointer;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
@@ -120,10 +119,10 @@
     <div id="screen-dashboard" class="screen active">
         <div class="header">
             <div style="display: flex; align-items: center; gap: 10px;">
-                <div class="avatar" style="background: #fee2e2; color: #dc2626;">S</div>
+                <div class="avatar" style="background: #fee2e2; color: #dc2626;">Skema</div>
                 <div>
-                    <h2 style="font-size: 14px;">ESSEC Business</h2>
-                    <p style="font-size: 10px; color: var(--text-muted);">Espace Exposant</p>
+                    <h2 style="font-size: 14px;">Universite xxxx</h2>
+                    <p style="font-size: 10px; color: var(--text-muted);">Etablissement d'enseignement superieur</p>
                 </div>
             </div>
             <i class="fa-regular fa-bell" style="color: var(--text-muted);"></i>
@@ -132,15 +131,21 @@
         <div class="menu-list">
             <h1 style="font-size: 18px; color: var(--text-dark); margin-bottom: 8px;">Fonctionnalités</h1>
             
+            <div class="menu-item" onclick="nav('screen-training')">
+                <div class="icon-wrapper" style="background: #ef4444;"><i class="fa-solid fa-user-group"></i></div>
+                <div class="menu-text"><h3>My training</h3><p>Manage your training program</p></div>
+                <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
+            </div>
+
             <div class="menu-item" onclick="nav('screen-leads')">
                 <div class="icon-wrapper" style="background: #ef4444;"><i class="fa-solid fa-user-group"></i></div>
                 <div class="menu-text"><h3>Leads & Demandes</h3><p>Voir et suivre vos contacts</p></div>
                 <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
             </div>
 
-            <div class="menu-item" onclick="nav('screen-stats')">
-                <div class="icon-wrapper" style="background: #dc2626;"><i class="fa-solid fa-chart-bar"></i></div>
-                <div class="menu-text"><h3>Statistiques</h3><p>Analyser vos performances</p></div>
+            <div class="menu-item" onclick="nav('screen-messages')">
+                <div class="icon-wrapper" style="background: #ef4444;"><i class="fa-solid fa-user-group"></i></div>
+                <div class="menu-text"><h3>Messages</h3><p>Responding to students</p></div>
                 <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
             </div>
 
@@ -150,9 +155,21 @@
                 <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
             </div>
             
+            <div class="menu-item" onclick="nav('screen-stats')">
+                <div class="icon-wrapper" style="background: #dc2626;"><i class="fa-solid fa-chart-bar"></i></div>
+                <div class="menu-text"><h3>Statistiques</h3><p>Analyser vos performances</p></div>
+                <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
+            </div>
+
             <div class="menu-item">
                 <div class="icon-wrapper" style="background: #10b981;"><i class="fa-solid fa-file-image"></i></div>
                 <div class="menu-text"><h3>Contenus du stand</h3><p>Brochure, vidéos, documents</p></div>
+                <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
+            </div>
+
+            <div class="menu-item" onclick="nav('screen-settings')">
+                <div class="icon-wrapper" style="background: #dc2626;"><i class="fa-solid fa-chart-bar"></i></div>
+                <div class="menu-text"><h3>Parametres</h3><p>Gerer votre profile</p></div>
                 <i class="fa-solid fa-chevron-right" style="color: #cbd5e1; font-size: 12px;"></i>
             </div>
         </div>
